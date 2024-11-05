@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="reset.css" />
     <!-- <link rel="stylesheet" href="style.css" /> -->
     <link rel="stylesheet" href="style_tkb.css" />
+    <link rel="stylesheet" href="style_kh.css">
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -126,13 +127,50 @@
           <div class="container">
             <div id="example4Left" class="list">
               <h2>Chương trình đào tạo</h2>
-              <div class="item">Item 1</div>
-              <div class="item">Item 2</div>
-              <div class="item">Item 3</div>
+              <h3>1. Giáo dục thể chất</h3>
+              <h3>2. Kiến thức giáo dục đại cương</h3>
+              <p>Bắt buộc</p>
+              <div class="item">Giáo dục thể chất 1 (*)</div>
+              <p>Tự chọn</p>
+              <div class="item">Bóng chuyền 1 (*)</div>
+              <div class="item">Bóng chuyền 2 (*)</div>
+              <div class="item">Bóng chuyền 3 (*)</div>
+              <div class="item">Bóng rổ 1 (*)</div>
+              <div class="item">Bóng rổ 2 (*)</div>
+              <div class="item">Bóng rổ 3 (*)</div>
+              <h3>2. Kiến thức giáo dục đại cương</h3>
+              <p>Bắt buộc</p>
+              <div class="item">Lịch sử Đảng Cộng sản Việt Nam</div>
+              <div class="item">Triết học Mác - Lênin</div>
+              <div class="item">Kinh tế chính trị Mác - Lênin</div>
+              <div class="item">Chủ nghĩa xã hội khoa học</div>
+              <div class="item">Tư tưởng Hồ Chí Minh</div>
+              <h3>3. Chuyên sâu</h3>
+              <p>Tự chọn</p>
+              <div class="item">Quản trị mạng</div>
+              <div class="item">Lập trình .Net</div>
+              <div class="item">Lập trình ứng dụng</div>
+              <div class="item">Phân tích nghiệp vụ</div>
+              <div class="item">Trí tuệ nhân tạo</div>
+              <div class="item">Đồ họa máy tính</div>
+              <div class="item">Học máy</div>
+              <div class="item">Kiểm thử và đảm bảo chất lượng phần mềm</div>
+              <div class="item">Lập trình Python</div>
+              <div class="item">Phát triển phần mềm hướng dịch vụ</div>
+              <div class="item">Ứng dụng trí tuệ nhân tạo trong kinh doanh và quản lý</div>
+              <div class="item">Bóng rổ 3 (*)</div>
+
             </div>
             <div id="example4Right" class="list list_right">
               <h2>Kế hoạch học kỳ 1 (2023,2024)</h2>
-              <div class="item">Item 4</div>
+              <h2>Kế hoạch học kỳ 2 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 3 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 4 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 5 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 6 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 7 (2023,2024)</h2>
+              <h2>Kế hoạch học kỳ 8 (2023,2024)</h2>
+
             </div>
           </div>
 
@@ -162,6 +200,17 @@
             }
             .moved {
               background-color: #d1e7dd; /* Màu nền mới cho các phần tử đã di chuyển */
+            }
+            .delete-button {
+              margin-left: 10px; /* Khoảng cách giữa nội dung và nút xóa */
+              background-color: #ff4d4d; /* Màu nền cho nút xóa */
+              color: white; /* Màu chữ cho nút xóa */
+              border: none; /* Không có viền */
+              border-radius: 3px; /* Bo góc cho nút */
+              cursor: pointer; /* Con trỏ khi hover */
+            }
+            .delete-button:hover {
+              background-color: #ff1a1a; /* Màu nền khi hover */
             }
           </style>
 
@@ -233,9 +282,29 @@
               group: "shared",
               animation: 150,
               onEnd: function (evt) {
-                // Không cần thay đổi màu cho phần tử bên phải
+                // Nếu phần tử được di chuyển từ bên trái sang bên phải
+                if (
+                  evt.from.id === "example4Left" &&
+                  evt.to.id === "example4Right"
+                ) {
+                  const movedItem = evt.item;
+                  movedItem.classList.add("moved"); // Thêm lớp 'moved' cho phần tử
+                }
                 saveData(); // Lưu lại dữ liệu
               },
+
+              onAdd: function (evt) {
+                const item = evt.item;
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Xóa";
+                deleteButton.className = "delete-button";
+                deleteButton.onclick = function () {
+                  item.remove();
+                  saveData();
+                };
+                item.appendChild(deleteButton);
+                saveData();
+              }
             });
 
             // Tải dữ liệu từ LocalStorage

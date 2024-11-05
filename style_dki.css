@@ -39,6 +39,7 @@ td {
     justify-content: center;
     align-items: center;
     isolation: isolate;
+    z-index: 9999;
 }
 
 .modal_overlay

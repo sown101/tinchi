@@ -249,3 +249,7 @@ h1 {
   flex-direction: column;
   margin: 0 20px;
 }
+
+.moved {
+  background-color: #d1e7dd; /* Màu nền mới cho các phần tử đã di chuyển */
+}

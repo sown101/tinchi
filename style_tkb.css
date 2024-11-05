@@ -145,6 +145,8 @@
     padding: 6px 16px;
     box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
+    height: 75vh;
+    overflow-y: auto;
     /* transition: all 0.5s ease; */
   }
   
@@ -185,4 +187,15 @@
   margin: 0 20px;
 }
   
-  
+  .right-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .right-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  .right-content::-webkit-scrollbar-track {
+    background: transparent;
+  }

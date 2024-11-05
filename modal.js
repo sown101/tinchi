@@ -164,7 +164,7 @@ const modalHTML = `<section class="modal">
                     lichHoc: cells[5].textContent
                   };
 
-                  if (confirm(`Bạn có chắc chắn muốn chọn:\n${JSON.stringify(data, null, 2)}`)) {
+                  if (confirm('Bạn có chắc chắn muốn chọn:\n' + JSON.stringify(data, null, 2))) {
                     // Save the data (this is just a placeholder, replace with actual save logic)
                     console.log("Data saved:", data);
                   }
@@ -174,8 +174,16 @@ const modalHTML = `<section class="modal">
           </div>
         </div>
     </section>
-`
+`;
 
 const courseTable = document.querySelectorAll("#courseTable tbody tr");
 
-courseTable.forEach(item) {
+courseTable.forEach((row) =>
+  row.addEventListener("click", functionShowModal)
+);
+
+function functionShowModal() {
+  document.body.insertAdjacentHTML("afterbegin", modalHTML);
+}
+
+
