@@ -122,7 +122,7 @@
         <div class="content">
           <div class="top_content">
             <h1>Đăng kí theo kế hoạch cá nhân</h1>
-            <table>
+            <table id="topContentTable">
               <thead class="courseTable">
                 <tr>
                   <th>Mã học phần</th>
@@ -150,51 +150,81 @@
                   <td>4</td>
                   <td>3</td>
                 </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>EC102</td>
-                  <td>Kinh tế vĩ mô</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
               </tbody>
             </table>
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
+              // Function to update the table (same as before for bottom_content)
+              function addRowClickEvents() {
+                const topContentRows = document.querySelectorAll("#topContentTable tbody tr");
+                topContentRows.forEach((row) => {
+                  row.addEventListener("click", showModal); // Show modal when a row is clicked
+                });
+              }
+
+              // Function to show modal
+              function showModal() {
+                const modalHTML = `
+                  <section class="modal">
+                    <div class="modal_overlay"></div>
+                    <div class="modal_content">
+                      <div class="modal_header">
+                        <div class="modal_header-title">Chi tiết</div>
+                        <div class="modal_header-close" id="closeModal">
+                          <img src="./icons8-close.svg" alt="close icon" width="36px">
+                        </div>
+                      </div>
+                      <div class="modal_body">
+                        <table id="detailTable">
+                          <thead>
+                            <tr>
+                              <th>Loại</th>
+                              <th>Tên LHP</th>
+                              <th>Lớp sinh hoạt</th>
+                              <th>Giới hạn</th>
+                              <th>SLĐK</th>
+                              <th>Lịch học</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Loại 1</td>
+                              <td>Tên LHP 1</td>
+                              <td>Lớp sinh hoạt 1</td>
+                              <td>Giới hạn 1</td>
+                              <td>SLĐK 1</td>
+                              <td>Lịch học 1</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>`;
+
+                const existingModal = document.querySelector(".modal");
+                if (existingModal) existingModal.remove();
+
+                document.body.insertAdjacentHTML("afterbegin", modalHTML);
+
+                document
+                  .getElementById("closeModal")
+                  .addEventListener("click", closeModal);
+                document
+                  .querySelector(".modal_overlay")
+                  .addEventListener("click", closeModal);
+              }
+
+              function closeModal() {
+                const modal = document.querySelector(".modal");
+                if (modal) modal.remove();
+              }
+
+              // Call the function to add click events when the page loads
+              addRowClickEvents();
+            });
+            </script>
           </div>
+          
           <div class="bottom_content">
             <h1>Đăng kí tín chỉ</h1>
             <p>
@@ -218,48 +248,6 @@
                 <!-- Nội dung bảng sẽ được cập nhật dựa trên lựa chọn -->
               </tbody>
             </table>
-            <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-            <script>
-              // Your web app's Firebase configuration
-              const firebaseConfig = {
-                apiKey: "YOUR_API_KEY",
-                authDomain: "YOUR_AUTH_DOMAIN",
-                projectId: "YOUR_PROJECT_ID",
-                storageBucket: "YOUR_STORAGE_BUCKET",
-                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-                appId: "YOUR_APP_ID",
-              };
-  
-              // Initialize Firebase
-              const app = firebase.initializeApp(firebaseConfig);
-              const db = firebase.firestore();
-  
-              document
-                .querySelector('select[name="txtTrangthai"]')
-                .addEventListener("change", function () {
-                  const selectedValue = this.value;
-                  const tableBody = document.querySelector("#courseTable tbody");
-                  tableBody.innerHTML = "";
-  
-                  db.collection("courses")
-                    .where("programId", "==", selectedValue)
-                    .get()
-                    .then((querySnapshot) => {
-                      querySnapshot.forEach((doc) => {
-                        const course = doc.data();
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-      <td>${course.code}</td>
-      <td>${course.name}</td>
-      <td>${course.credits}</td>
-      <td>${course.instructor}</td>
-    `;
-                        tableBody.appendChild(row);
-                      });
-                    });
-                });
-            </script> -->
             <script>
               const courseData = {
                 1: [
@@ -292,27 +280,101 @@
                 ],
               };
 
+              // Hàm cập nhật bảng
+              function updateCourseTable(selectedValue) {
+                const tableBody = document.querySelector("#courseTable tbody");
+                tableBody.innerHTML = "";
+
+                if (courseData[selectedValue]) {
+                  courseData[selectedValue].forEach((course) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                      <td>${course.code}</td>
+                      <td>${course.name}</td>
+                      <td>${course.credits}</td>
+                      <td>${course.instructor}</td>
+                    `;
+                    tableBody.appendChild(row);
+                  });
+                  addRowClickEvents();
+                }
+              }
+
+              // Hàm thêm sự kiện click cho các hàng trong bảng
+              function addRowClickEvents() {
+                const courseTableRows = document.querySelectorAll(
+                  "#courseTable tbody tr"
+                );
+                courseTableRows.forEach((row) => {
+                  row.addEventListener("click", showModal);
+                });
+              }
+
+              // Hàm hiển thị modal
+              function showModal() {
+                const modalHTML = `
+                  <section class="modal">
+                    <div class="modal_overlay"></div>
+                    <div class="modal_content">
+                      <div class="modal_header">
+                        <div class="modal_header-title">Chi tiết</div>
+                        <div class="modal_header-close" id="closeModal">
+                          <img src="./icons8-close.svg" alt="close icon" width="36px">
+                        </div>
+                      </div>
+                      <div class="modal_body">
+                        <table id="detailTable">
+                          <thead>
+                            <tr>
+                              <th>Loại</th>
+                              <th>Tên LHP</th>
+                              <th>Lớp sinh hoạt</th>
+                              <th>Giới hạn</th>
+                              <th>SLĐK</th>
+                              <th>Lịch học</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Loại 1</td>
+                              <td>Tên LHP 1</td>
+                              <td>Lớp sinh hoạt 1</td>
+                              <td>Giới hạn 1</td>
+                              <td>SLĐK 1</td>
+                              <td>Lịch học 1</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>`;
+
+                const existingModal = document.querySelector(".modal");
+                if (existingModal) existingModal.remove();
+
+                document.body.insertAdjacentHTML("afterbegin", modalHTML);
+
+                document
+                  .getElementById("closeModal")
+                  .addEventListener("click", closeModal);
+                document
+                  .querySelector(".modal_overlay")
+                  .addEventListener("click", closeModal);
+              }
+
+              function closeModal() {
+                const modal = document.querySelector(".modal");
+                if (modal) modal.remove();
+              }
+
               document
                 .querySelector('select[name="txtTrangthai"]')
                 .addEventListener("change", function () {
                   const selectedValue = this.value;
-                  const tableBody =
-                    document.querySelector("#courseTable tbody");
-                  tableBody.innerHTML = "";
-
-                  if (courseData[selectedValue]) {
-                    courseData[selectedValue].forEach((course) => {
-                      const row = document.createElement("tr");
-                      row.innerHTML = `
-                        <td>${course.code}</td>
-                        <td>${course.name}</td>
-                        <td>${course.credits}</td>
-                        <td>${course.instructor}</td>
-                    `;
-                      tableBody.appendChild(row);
-                    });
-                  }
+                  updateCourseTable(selectedValue);
                 });
+
+                
             </script>
           </div>
         </div>

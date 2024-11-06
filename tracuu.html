@@ -26,7 +26,7 @@
     <link rel="manifest" href="./favicon_io/site.webmanifest" />
     <link rel="stylesheet" href="reset.css" />
     <!-- <link rel="stylesheet" href="style.css" /> -->
-    <link rel="stylesheet" href="style_tkb.css" />
+    <link rel="stylesheet" href="styleTC.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -118,7 +118,134 @@
         </div>
       </div>
       <div class="right-content">
-        <div class="content"></div>
+        <div class="content">
+          <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Tra cứu học phần tương đương</h3>
+          </div>
+          <div class="panel-body">
+            <div class="Choose">
+              <b>
+              Tìm theo:
+              <select name="TenHP" id="TenHP">
+                <option value="Tên HP">Tên HP</option>
+                <option value="Mã HP">Mã HP</option>
+              </select>
+              </b>
+              <input type="text" style="width: 200px;border-radius: 15px;padding: 5px;" required placeholder="Nhập từ khóa ..." name="txtSearch" 
+              id="txtSearch" class="txttext">
+              <button type="submit" class="btn btn-primary" id="btnSearch" style="border-radius: 5px; background-color: #119ee5;">Search</button>
+            </div>
+
+            <div class="tired" style="margin-top: 20px;">
+              <table class="very_tired">
+                <div class="full_tired">
+                <thead>
+                  <tr>
+                    <th>Mã HP</th>
+                    <th>Mã LHP</th>
+                    <th>Tên HP</th>
+                    <th>STC</th>
+                    <th>Loại</th>
+                    <th>Thông tin</th>
+                    <th>Từ ngày</th>
+                    <th>Đến ngày</th>
+                    <th>Giới hạn</th>
+                    <th>SL còn trống</th>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_01</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 2, tiết 1-2,tuần 1-12,SA</td>
+                    <td>02/09/2019</td>
+                    <td>18/11/2019</td>
+                    <td>10-40</td>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_02</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 2, tiết 5-6,tuần 1-12,SA</td>
+                    <td>02/09/2019</td>
+                    <td>18/11/2019</td>
+                    <td>10-40</td>
+                    <td>09</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_02</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 2, tiết 5-6,tuần 1-12,SA</td>
+                    <td>02/09/2019</td>
+                    <td>18/11/2019</td>
+                    <td>10-40</td>
+                    <td>09</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_04</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 7, tiết 5-6,tuần 0-18,SA</td>
+                    <td>30/11/2019</td>
+                    <td>15/02/2020</td>
+                    <td>10-40</td>
+                    <td>16</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_05</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 4, tiết 1-2,tuần 1-12,SA</td>
+                    <td>04/09/2019</td>
+                    <td>20/11/2019</td>
+                    <td>10-40</td>
+                    <td>26</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_06</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 2, tiết 7-8,tuần 1-12,SA</td>
+                    <td>04/09/2019</td>
+                    <td>20/11/2019</td>
+                    <td>10-40</td>
+                    <td>31</td>
+                  </tr>
+                  <tr>
+                    <td>GDTC1101</td>
+                    <td>GDTC1101(119)_07</td>
+                    <td>Giáo dục thể chất 1</td>
+                    <td>2.00</td>
+                    <td>Lý thuyết</td>
+                    <td>Thứ 5, tiết 1-2,tuần 1-12,SA</td>
+                    <td>05/09/2019</td>
+                    <td>21/11/2019</td>
+                    <td>10-40</td>
+                    <td>11</td>
+                  </tr>
+            
+                </thead>
+              </div>
+              </table>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
 

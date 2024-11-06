@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Các thẻ meta và link khác -->
+    <title>Đăng kí tín chỉ</title>
+  </head>
+  <body>
+    <!-- Nội dung trang HTML và header -->
+
+    <div class="main">
+      <!-- Cấu trúc trang -->
+
+      <div class="right-content">
+        <div class="content">
+          <div class="bottom_content">
+            <h1>Đăng kí tín chỉ</h1>
+            <p>
+              Chương trình đào tạo
+              <select name="txtTrangthai">
+                <option value="0">Chọn</option>
+                <option value="1">Khoa học máy tính 65</option>
+                <option value="2">Kinh tế quốc tế</option>
+              </select>
+            </p>
+            <table id="courseTable">
+              <thead>
+                <tr>
+                  <th>Mã học phần</th>
+                  <th>Tên học phần</th>
+                  <th>STC</th>
+                  <th>Số lượng LHP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Nội dung bảng sẽ được cập nhật dựa trên lựa chọn -->
+              </tbody>
+            </table>
+
+            <!-- Script để cập nhật bảng courseTable và xử lý modal -->
+            <script>
+              const courseData = {
+                1: [
+                  { code: "CS101", name: "Lập trình cơ bản", credits: 3, instructor: "5" },
+                  { code: "CS102", name: "Cấu trúc dữ liệu", credits: 4, instructor: "20" },
+                ],
+                2: [
+                  { code: "EC101", name: "Kinh tế vi mô", credits: 3, instructor: "30" },
+                  { code: "EC102", name: "Kinh tế vĩ mô", credits: 4, instructor: "40" },
+                ],
+              };
+
+              // Hàm cập nhật bảng
+              function updateCourseTable(selectedValue) {
+                const tableBody = document.querySelector("#courseTable tbody");
+                tableBody.innerHTML = "";
+
+                if (courseData[selectedValue]) {
+                  courseData[selectedValue].forEach((course) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                      <td>${course.code}</td>
+                      <td>${course.name}</td>
+                      <td>${course.credits}</td>
+                      <td>${course.instructor}</td>
+                    `;
+                    tableBody.appendChild(row);
+                  });
+                  addRowClickEvents();
+                }
+              }
+
+              // Hàm thêm sự kiện click cho các hàng trong bảng
+              function addRowClickEvents() {
+                const courseTableRows = document.querySelectorAll("#courseTable tbody tr");
+                courseTableRows.forEach((row) => {
+                  row.addEventListener("click", showModal);
+                });
+              }
+
+              // Hàm hiển thị modal
+              function showModal() {
+                const modalHTML = `
+                  <section class="modal">
+                    <div class="modal_overlay"></div>
+                    <div class="modal_content">
+                      <div class="modal_header">
+                        <div class="modal_header-title">Chi tiết</div>
+                        <div class="modal_header-close" id="closeModal">
+                          <img src="./icons8-close.svg" alt="close icon" width="36px">
+                        </div>
+                      </div>
+                      <div class="modal_body">
+                        <table id="detailTable">
+                          <thead>
+                            <tr>
+                              <th>Loại</th>
+                              <th>Tên LHP</th>
+                              <th>Lớp sinh hoạt</th>
+                              <th>Giới hạn</th>
+                              <th>SLĐK</th>
+                              <th>Lịch học</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Loại 1</td>
+                              <td>Tên LHP 1</td>
+                              <td>Lớp sinh hoạt 1</td>
+                              <td>Giới hạn 1</td>
+                              <td>SLĐK 1</td>
+                              <td>Lịch học 1</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>`;
+
+                const existingModal = document.querySelector(".modal");
+                if (existingModal) existingModal.remove();
+
+                document.body.insertAdjacentHTML("afterbegin", modalHTML);
+
+                document.getElementById("closeModal").addEventListener("click", closeModal);
+                document.querySelector(".modal_overlay").addEventListener("click", closeModal);
+              }
+
+              function closeModal() {
+                const modal = document.querySelector(".modal");
+                if (modal) modal.remove();
+              }
+
+              document.querySelector('select[name="txtTrangthai"]').addEventListener("change", function () {
+                const selectedValue = this.value;
+                updateCourseTable(selectedValue);
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+  </body>
+</html>
